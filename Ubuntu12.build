@@ -1,0 +1,88 @@
+Install recommended dependencies:
+
+sudo apt-get install git libgmp3-dev libssl-dev cmake libminiupnpc-dev
+
+The official list also includes libcrypto++-dev libboost-all-dev libleveldb-dev, but I believe those are of too early versions for Ubuntu 12.
+
+#Get gcc4.8 and gcc4.8 packages (ubuntu 12 uses gcc4.6)
+sudo apt-get install gcc-4.8 g++-4.8
+
+#Get the new boost (1.53):
+#eventually uninstall the standard boost 1.46.
+add ppa:apokluda/boost1.53
+sudo apt-get install boost1.53
+
+#Install tools for 'configure' of secp256k1:
+sudo apt-get install build-essential checkinstall
+sudo apt-get install autoconf autocal shtool
+
+#Manually install leveldb1_1.9.0:
+#Download levendl 1.9 unofficial packages:
+wget http://launchpadlibrarian.net/129161181/libleveldb1_1.9.0-1_amd64.deb
+wget http://launchpadlibrarian.net/129161182/libleveldb-dev_1.9.0-1_amd64.deb
+
+sudo apt-get remove  libleveldb-dev
+
+#cd to your download path
+sudo dpkg -i libleveldb1_1.9.0-1_amd64.deb
+sudo dpkg -i libleveldb-dev_1.9.0-1_amd64.deb
+
+#Create directory for sources:
+mkdir ~/ether/src
+cd ~/ether/src
+
+#Get copy of the git repository:
+mkdir ~ether/cpp
+cd ~ether/cpp
+git clone https://github.com/ethereum/cpp-ethereum.git
+
+#Get and build secp256k1:
+cd ~ether/cpp
+git clone https://github.com/sipa/secp256k1
+###The unpacked directory should be in ~/ether/cpp/secp256k1 (mv if the location is different)
+cd ~/ether/cpp/secp256k1
+
+#Nuts on the build tools, the following worked for me:
+aclocal
+autoheader
+automake --force-missing --add-missing
+autoconf
+./configure
+make
+
+
+#Get and build recent crypto library libcrypto++ 5.6.2:
+wget http://www.cryptopp.com/cryptopp562.zip
+###Unpack the file to ~/ether/cpp/cryptopp56
+cd ~/ether/cpp/cryptopp56
+Edit GNUmakefile:
+     Add CXX := g++-4.8 around line~ 29
+     Add by adding -fPIC to CXXFLAGS , line ~44
+make static dynamic test
+
+
+#Build the ethereum itself:
+mkdir ~ether/cpp-ethereum-build
+cd ~ether/cpp-ethereum-build
+cmake -DCMAKE_BUILD_TYPE=Debug CMAKE_C_COMPILER=gcc-4.8 -D CMAKE_CXX_COMPILER=g++-4.8  ../cpp/cpp-ethereum/
+make
+
+
+
+Build alephzero:
+
+# Get qt5:
+sudo add-apt-repository ppa:ubuntu-sdk-team/ppa
+sudo apt-get update
+sudo apt-get install qtbase5-dev
+sudo apt-get install qt5-qmake
+sudo apt-get install qt5-default
+
+
+cd ~/ether/cpp-build/cpp-ethereum-build
+mkdir alephzero
+cd alephzero
+qmake ../../cpp-ethereum/alephzero
+# make with g++-4.8
+make CC=gcc-4.8 CXX=g++-4.8
+
