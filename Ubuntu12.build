@@ -62,9 +62,9 @@ make static dynamic test
 
 
 #Build the ethereum itself:
-mkdir ~ether/cpp-ethereum-build
-cd ~ether/cpp-ethereum-build
-cmake -DCMAKE_BUILD_TYPE=Debug CMAKE_C_COMPILER=gcc-4.8 -D CMAKE_CXX_COMPILER=g++-4.8  ../cpp/cpp-ethereum/
+mkdir ~ether/cpp-build
+cd ~ether/cpp-build
+cmake -DCMAKE_BUILD_TYPE=Debug CMAKE_C_COMPILER=gcc-4.8 -D CMAKE_CXX_COMPILER=g++-4.8  ../cpp-ethereum/
 make
 
 
