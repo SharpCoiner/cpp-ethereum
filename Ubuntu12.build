@@ -1,6 +1,7 @@
 Install recommended dependencies:
 
 sudo apt-get install git libgmp3-dev libssl-dev cmake libminiupnpc-dev
+#cmake 2.8.9 or higher is needed because of qt5.
 
 The official list also includes libcrypto++-dev libboost-all-dev libleveldb-dev, but I believe those are of too early versions for Ubuntu 12.
 
@@ -64,7 +65,7 @@ make static dynamic test
 #Build the ethereum itself:
 mkdir ~ether/cpp-build
 cd ~ether/cpp-build
-cmake -DCMAKE_BUILD_TYPE=Debug CMAKE_C_COMPILER=gcc-4.8 -D CMAKE_CXX_COMPILER=g++-4.8  ../cpp-ethereum/
+cmake -DCMAKE_BUILD_TYPE=Debug -D CMAKE_C_COMPILER=gcc-4.8 -D CMAKE_CXX_COMPILER=g++-4.8  ../cpp-ethereum/
 make
 
 
