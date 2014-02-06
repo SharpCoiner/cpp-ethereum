@@ -13,9 +13,6 @@ sudo apt-get install gcc-4.8 g++-4.8
 add ppa:apokluda/boost1.53
 sudo apt-get install boost1.53
 
-#Install tools for 'configure' of secp256k1:
-sudo apt-get install build-essential checkinstall
-sudo apt-get install autoconf autocal shtool
 
 #Manually install leveldb1_1.9.0:
 #Download levendl 1.9 unofficial packages:
