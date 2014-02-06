@@ -37,19 +37,7 @@ mkdir ~ether/cpp
 cd ~ether/cpp
 git clone https://github.com/ethereum/cpp-ethereum.git
 
-#Get and build secp256k1:
-cd ~ether/cpp
-git clone https://github.com/sipa/secp256k1
-###The unpacked directory should be in ~/ether/cpp/secp256k1 (mv if the location is different)
-cd ~/ether/cpp/secp256k1
-
-#Nuts on the build tools, the following worked for me:
-aclocal
-autoheader
-automake --force-missing --add-missing
-autoconf
-./configure
-make
+#Get and build secp256k1 - not needed any more, the library was added to the ethereum git.
 
 
 #Get and build recent crypto library libcrypto++ 5.6.2:
